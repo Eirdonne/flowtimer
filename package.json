@@ -16,7 +16,6 @@
   "build": {
     "appId": "com.flowtimer.app",
     "productName": "FlowTimer",
-    "category": "public.app-category.productivity",
     "mac": {
       "target": ["zip", "dmg"],
       "category": "public.app-category.productivity"
