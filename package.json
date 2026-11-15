@@ -1,0 +1,27 @@
+{
+  "name": "flowtimer",
+  "version": "1.0.0",
+  "description": "A minimal floating and notch-style repeating timer for macOS.",
+  "main": "src/main.js",
+  "author": "FlowTimer",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist": "electron-builder --mac zip dmg"
+  },
+  "devDependencies": {
+    "electron": "^38.2.0",
+    "electron-builder": "^26.0.12"
+  },
+  "build": {
+    "appId": "com.flowtimer.app",
+    "productName": "FlowTimer",
+    "category": "public.app-category.productivity",
+    "mac": {
+      "target": ["zip", "dmg"],
+      "category": "public.app-category.productivity"
+    },
+    "files": ["src/**/*", "package.json"],
+    "asar": true
+  }
+}
