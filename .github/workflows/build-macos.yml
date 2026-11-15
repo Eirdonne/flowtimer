@@ -8,7 +8,8 @@ on:
 jobs:
   build:
     name: macOS ZIP and DMG (Intel + Apple Silicon)
-    runs-on: macos-14
+    # Use the broadly supported Intel runner; electron-builder cross-packages arm64 below.
+    runs-on: macos-13
     steps:
       - name: Check out source
         uses: actions/checkout@v4
