@@ -7,16 +7,8 @@ on:
 
 jobs:
   build:
-    name: macOS ${{ matrix.arch }}
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-          - arch: x64
-            runner: macos-13
-          - arch: arm64
-            runner: macos-14
-    runs-on: ${{ matrix.runner }}
+    name: macOS ZIP and DMG (Intel + Apple Silicon)
+    runs-on: macos-14
     steps:
       - name: Check out source
         uses: actions/checkout@v4
@@ -27,13 +19,23 @@ jobs:
           cache: npm
       - name: Install dependencies
         run: npm ci
-      - name: Build macOS packages
-        run: npx electron-builder --mac --${{ matrix.arch }} --publish never
-      - name: Upload FlowTimer packages
+      - name: Build Intel packages
+        run: npx electron-builder --mac --x64 --publish never
+      - name: Save Intel packages
         uses: actions/upload-artifact@v4
         with:
-          name: FlowTimer-macOS-${{ matrix.arch }}
+          name: FlowTimer-macOS-Intel
           path: |
-            dist/*.zip
-            dist/*.dmg
+            dist/*x64*.zip
+            dist/*x64*.dmg
+          if-no-files-found: error
+      - name: Build Apple Silicon packages
+        run: npx electron-builder --mac --arm64 --publish never
+      - name: Save Apple Silicon packages
+        uses: actions/upload-artifact@v4
+        with:
+          name: FlowTimer-macOS-Apple-Silicon
+          path: |
+            dist/*arm64*.zip
+            dist/*arm64*.dmg
           if-no-files-found: error
